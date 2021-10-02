@@ -19,16 +19,16 @@
                     <a class="nav-link" href="addCompanyInfo">Add Company</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="addStockPrices.jsp">Add Stock</a>
+                    <a class="nav-link" href="addStock">Add Stock</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="list-companies?selectedValue=ALL">List of Companies</a>
+                    <a class="nav-link" href="list-companies?selectedValue=ALL">List all Companies</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Fetch Company</a>
+                    <a class="nav-link" href="search-company">List Company Stock Details</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Stock details by date range</a>
+                    <a class="nav-link" href="search-stock-index">Stock Price Index</a>
                 </li>
 
             </ul>

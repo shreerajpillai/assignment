@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyModel {
+    private String id;
     private String cexchange;
     private String cname;
     private String cceo;

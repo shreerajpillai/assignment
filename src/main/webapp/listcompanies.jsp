@@ -22,7 +22,8 @@
 <div class="container" style="padding: 10px">
     <form action="list-companies" method="get">
         <div class="form-group">
-            <label for="cexchange">Stock Market Exchange: (displaying companies in exchange - <strong>${selectedValue}</strong>)</label>
+            <label for="cexchange">Stock Market Exchange: (displaying companies in exchange -
+                <strong>${selectedValue}</strong>)</label>
             <select class="form-control" name="selectedValue" id="cexchange" onchange="this.form.submit()">
                 <option value="ALL" selected>--Select an exchange to filter the data--</option>
                 <option value="BSE">BSE</option>
@@ -34,7 +35,6 @@
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">S.No</th>
             <th scope="col">Company Code</th>
             <th scope="col">Company Name</th>
             <th scope="col">BoD</th>
@@ -44,14 +44,14 @@
         </thead>
         <tbody>
         <c:forEach items="${companyModels}" var="company">
-        <tr>
-            <th>1</th>
-            <th>${company.cexchange}</th>
-            <th>${company.cname}</th>
-            <th>${company.cdirectors}</th>
-            <th>${company.cceo}</th>
-            <th>${company.cturnover}</th>
-        </tr>
+            <tr>
+
+                <th>${company.cexchange}</th>
+                <th>${company.cname}</th>
+                <th>${company.cdirectors}</th>
+                <th>${company.cceo}</th>
+                <th>$${company.cturnover}</th>
+            </tr>
         </c:forEach>
         </tbody>
     </table>

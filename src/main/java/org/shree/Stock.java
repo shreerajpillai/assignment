@@ -8,6 +8,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.Date;
 
 
 @Entity
@@ -15,22 +16,17 @@ import javax.persistence.Id;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Company {
-
+public class Stock {
     @Id
     private String id;
-    @Column(name="NAME")
-    private String name;
-    @Column(name="EXCHANGE")
+    @Column(name = "EXCHANGE")
     private String exchange;
-    @Column(name="CEO")
-    private String ceo;
-    @Column(name="TURNOVER")
-    private Long turnover;
-    @Column(name="DIRECTORS")
-    private String directors;
-    @Column(name="PROFILE")
-    private String profile;
-
-
+    @Column(name = "COMPANYID")
+    private String companyId;
+    @Column(name = "PRICE")
+    private String price;
+    @Column(name = "PRICEDATE")
+    private String priceDate;
+    @Column(name = "PRICETIME")
+    private String priceTime;
 }

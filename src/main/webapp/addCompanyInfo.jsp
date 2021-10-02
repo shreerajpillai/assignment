@@ -34,24 +34,24 @@
         </div>
         <div class="form-group">
             <label for="cname">Name of the Company</label>
-            <form:input  type="text" class="form-control" path="cname" id="cname" placeholder="Enter company name"/>
+            <form:input pattern=".{3,100}" title="3 to 100 characters"  required="true" type="text" class="form-control" path="cname" id="cname" placeholder="Enter company name"/>
         </div>
         <div class="form-group">
             <label for="cceo">Company CEO</label>
-            <form:input  type="text" class="form-control" path="cceo" id="cceo" placeholder="Enter company CEO"/>
+            <form:input  pattern=".{3,100}" title="3 to 100 characters" required="true" type="text" class="form-control" path="cceo" id="cceo" placeholder="Enter company CEO"/>
         </div>
         <div class="form-group">
-            <label for="cturnover">Company Turnover</label>
-            <form:input  type="text" class="form-control" path="cturnover" id="cturnover" placeholder="Enter company turnover"/>
+            <label for="cturnover">Company Turnover ($)</label>
+            <form:input  required="true" type="number" class="form-control" path="cturnover" id="cturnover" placeholder="Enter company turnover"/>
         </div>
         <div class="form-group">
             <label for="cdirectors">Company Board of Directors</label>
-            <form:input  type="text" class="form-control" path="cdirectors" id="cdirectors"
+            <form:input  pattern=".{5,500}" title="5 to 500 characters" required="true" type="text" class="form-control" path="cdirectors" id="cdirectors"
                    placeholder="Enter company board of directors"/>
         </div>
         <div class="form-group">
             <label for="cprofile">About the Company</label>
-            <form:input  type="text" class="form-control" path="cprofile" id="cprofile" placeholder="Enter about the company"/>
+            <form:textarea pattern=".{5,500}" title="5 to 500 characters" required="true" rows="3" class="form-control" path="cprofile" id="cprofile" placeholder="Enter about the company"/>
         </div>
         <button type="submit" class="btn btn-primary">Post Company</button>
     </form:form>
