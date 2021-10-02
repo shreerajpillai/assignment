@@ -15,7 +15,7 @@ import java.util.Date;
 public class StockModel {
     private String cexchange;
     private String companyId;
-    private String sprice;
+    private Double sprice;
     private String priceDate;
     private String priceTime;
 

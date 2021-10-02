@@ -28,7 +28,7 @@
                     <a class="nav-link" href="search-company">List Company Stock Details</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="search-stock-index">Stock Price Index</a>
+                    <a class="nav-link" href="stock-index">Stock Price Index</a>
                 </li>
 
             </ul>

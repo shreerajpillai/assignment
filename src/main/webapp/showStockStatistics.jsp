@@ -22,9 +22,9 @@
     function onSubmit(operation) {
         var frm = document.getElementById("frm2");
         if (operation === 'fetch') {
-            frm.action = 'list-stocks?action=' + operation;
+            frm.action = 'search-stock-index?action=' + operation;
         } else {
-            frm.action = 'list-stocks?action=' + operation;
+            frm.action = 'search-stock-index?action=' + operation;
         }
         frm.submit();
     }
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
             <label for="ccode">Company Code</label>
-            <form:input type="text" class="form-control" path="ccode" id="ccode" disabled="true" />
+            <form:input type="text" class="form-control" path="ccode" id="ccode" disabled="true"/>
         </div>
         <div class="form-group">
             <label for="startdate">Start Date (mm/dd/yyyy)</label>
@@ -80,6 +80,30 @@
         </c:forEach>
         </tbody>
     </table>
+    <form class="row" novalidate>
+        <div class="col-md-4">
+             <div class="input-group has-validation">
+                <span class="input-group-text" id="inputMax">MAX</span>
+                <input type="text" class="form-control" id="max" value="${rangemodel.max}"
+                       disabled="true">
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="input-group has-validation">
+                <span class="input-group-text" id="inputMin">MIN</span>
+                <input type="text" class="form-control" id="min" value="${rangemodel.min}"
+                       disabled="true">
+            </div>
+        </div>
+        <div class="col-md-4">
+             <div class="input-group has-validation">
+                <span class="input-group-text" id="inputAvg">AVG</span>
+                <input type="text" class="form-control" id="avg" value="${rangemodel.avg}"
+                       disabled="true">
+            </div>
+        </div>
+    </form>
+
 </div>
 
 <jsp:include page="footer.jsp"/>

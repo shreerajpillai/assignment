@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,12 +22,83 @@ public class StockController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @RequestMapping(value = "search-stock-index", method = RequestMethod.GET)
-    public String searchStockIndex(Model model) {
+    @RequestMapping(value = "stock-index", method = RequestMethod.GET)
+    public String stockIndex(Model model) {
         SearchCompanyModel searchCompanyModel = SearchCompanyModel.builder().build();
         model.addAttribute("searchcompanymodel", searchCompanyModel);
         return "showStockStatistics.jsp";
     }
+
+    @RequestMapping(value = "search-stock-index", method = RequestMethod.POST)
+    public ModelAndView searchStockIndex(@ModelAttribute("searchcompanymodel") SearchCompanyModel searchCompanyModel,
+                                         @RequestParam String action) {
+        List<CompanyModel> companyModels = new ArrayList<>();
+        ModelAndView mv = new ModelAndView();
+        List<Company> companies;
+        if (action.equals("fetch")) {
+            mv.addObject("result", false);
+            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            mv.addObject("companyModels", referenceData);
+            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
+                if(companyModel!=null){
+                    searchCompanyModel.setCcode("test");
+                    searchCompanyModel.setCceo(companyModel.getCceo());
+                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+                }
+            }
+            else{
+                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
+                if(companyModel!=null){
+                    searchCompanyModel.setCcode("test");
+                    searchCompanyModel.setCceo(companyModel.getCceo());
+                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+                }
+            }
+
+        }
+        else{
+            List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId());
+
+
+            Double max = stockModels.stream().mapToDouble(v->v.getSprice()).max().getAsDouble();
+            Double min = stockModels.stream().mapToDouble(v->v.getSprice()).min().getAsDouble();
+            Double avg = stockModels.stream().mapToDouble(v->v.getSprice()).average().getAsDouble();
+
+            StockPriceRangeModel rangeModel = StockPriceRangeModel.builder()
+                    .min(min)
+                    .max(max)
+                    .avg(avg)
+                    .build();
+
+            mv.addObject("rangemodel", rangeModel);
+
+            mv.addObject("stockModels", stockModels);
+            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            mv.addObject("companyModels", referenceData);
+            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
+                if(companyModel!=null){
+                    searchCompanyModel.setCcode("test");
+                    searchCompanyModel.setCceo(companyModel.getCceo());
+                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+                }
+            }
+            else{
+                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
+                if(companyModel!=null){
+                    searchCompanyModel.setCcode("test");
+                    searchCompanyModel.setCceo(companyModel.getCceo());
+                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+                }
+            }
+        }
+
+        mv.setViewName("showStockStatistics.jsp");
+        //mv.addObject("selectedValue",selectedValue);
+        return mv;
+    }
+
 
     @RequestMapping(value = "search-company", method = RequestMethod.GET)
     public String searchCompany(Model model) {

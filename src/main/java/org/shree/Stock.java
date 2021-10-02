@@ -24,7 +24,7 @@ public class Stock {
     @Column(name = "COMPANYID")
     private String companyId;
     @Column(name = "PRICE")
-    private String price;
+    private Double price;
     @Column(name = "PRICEDATE")
     private String priceDate;
     @Column(name = "PRICETIME")
