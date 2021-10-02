@@ -1,5 +1,8 @@
-package org.shree;
+package org.iiht.controllers;
 
+import org.iiht.models.*;
+import org.iiht.repositories.CompanyRepository;
+import org.iiht.repositories.StockRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.swing.text.html.Option;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -37,33 +39,31 @@ public class StockController {
         List<Company> companies;
         if (action.equals("fetch")) {
             mv.addObject("result", false);
-            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
-            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+            if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
                 CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
-            }
-            else{
+            } else {
                 CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
             }
 
-        }
-        else{
+        } else {
             List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId());
 
 
-            Double max = stockModels.stream().mapToDouble(v->v.getSprice()).max().getAsDouble();
-            Double min = stockModels.stream().mapToDouble(v->v.getSprice()).min().getAsDouble();
-            Double avg = stockModels.stream().mapToDouble(v->v.getSprice()).average().getAsDouble();
+            Double max = stockModels.stream().mapToDouble(v -> v.getSprice()).max().getAsDouble();
+            Double min = stockModels.stream().mapToDouble(v -> v.getSprice()).min().getAsDouble();
+            Double avg = stockModels.stream().mapToDouble(v -> v.getSprice()).average().getAsDouble();
 
             StockPriceRangeModel rangeModel = StockPriceRangeModel.builder()
                     .min(min)
@@ -74,19 +74,18 @@ public class StockController {
             mv.addObject("rangemodel", rangeModel);
 
             mv.addObject("stockModels", stockModels);
-            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
-            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+            if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
                 CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
-            }
-            else{
+            } else {
                 CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
@@ -114,42 +113,39 @@ public class StockController {
         List<Company> companies;
         if (action.equals("fetch")) {
             mv.addObject("result", false);
-            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
-            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+            if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
                 CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
-            }
-            else{
+            } else {
                 CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
             }
 
-        }
-        else{
+        } else {
             List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId());
             mv.addObject("stockModels", stockModels);
-            Map<String,String> referenceData = getCompanies(searchCompanyModel.getCexchange());
+            Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
-            if(StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData!=null ){
+            if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
                 CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
                 }
-            }
-            else{
+            } else {
                 CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if(companyModel!=null){
+                if (companyModel != null) {
                     searchCompanyModel.setCcode("test");
                     searchCompanyModel.setCceo(companyModel.getCceo());
                     searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
@@ -184,13 +180,12 @@ public class StockController {
             stock.setExchange(stockmodel.getCexchange());
             stock.setPriceTime(stockmodel.getPriceTime());
             repository.save(stock);
-            Map<String,String> referenceData = getCompanies(stockmodel.getCexchange());
+            Map<String, String> referenceData = getCompanies(stockmodel.getCexchange());
             mv.addObject("companyModels", referenceData);
             mv.addObject("result", true);
-        }
-        else{
+        } else {
             mv.addObject("result", false);
-            Map<String,String> referenceData = getCompanies(stockmodel.getCexchange());
+            Map<String, String> referenceData = getCompanies(stockmodel.getCexchange());
             mv.addObject("companyModels", referenceData);
         }
         System.out.println("Stock has been successfully added");
@@ -202,8 +197,8 @@ public class StockController {
 
     private CompanyModel getCompanyDetail(String companyId) {
         Optional<Company> company = companyRepository.findById(companyId);
-        CompanyModel companyModel=null;
-        if(company!=null){
+        CompanyModel companyModel = null;
+        if (company != null) {
             companyModel = CompanyModel.builder()
                     .cturnover(company.get().getTurnover())
                     .cceo(company.get().getCeo())
@@ -219,9 +214,9 @@ public class StockController {
         } else {
             companies = companyRepository.findByExchange(selectedValue);
         }
-        Map<String,String> company = new LinkedHashMap<String,String>();
-        companies.forEach(c->{
-            company.put(c.getId(),c.getName());
+        Map<String, String> company = new LinkedHashMap<String, String>();
+        companies.forEach(c -> {
+            company.put(c.getId(), c.getName());
         });
 
         return company;
@@ -229,7 +224,7 @@ public class StockController {
 
     public List<StockModel> getStockByCompany(String companyId) {
         List<Stock> stocks;
-        stocks = (List<Stock>) repository.findByCompanyId (companyId);
+        stocks = repository.findByCompanyId(companyId);
         List<StockModel> stockModels = stocks.stream().map(c -> {
 
             return StockModel.builder()

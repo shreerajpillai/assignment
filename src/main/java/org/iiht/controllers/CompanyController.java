@@ -1,5 +1,9 @@
-package org.shree;
+package org.iiht.controllers;
 
+import lombok.SneakyThrows;
+import org.iiht.models.Company;
+import org.iiht.models.CompanyModel;
+import org.iiht.repositories.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +52,7 @@ public class CompanyController {
         return mav;
     }
 
+    @SneakyThrows
     @RequestMapping(value = "addCompanyInfo", method = RequestMethod.GET)
     public String addCompanyInfo(Model model) {
         CompanyModel companyModel = CompanyModel.builder().build();

@@ -1,4 +1,4 @@
-package org.shree;
+package org.iiht.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

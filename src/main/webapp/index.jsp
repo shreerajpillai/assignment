@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ShreeDev
-  Date: 10/1/2021
-  Time: 6:21 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
 <html>
 <head>
@@ -15,14 +9,26 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
-<%--<div>--%>
 
-<%--    <a href="addCompanyInfo.jsp">Add Company Details</a><br>--%>
-<%--    <a href="addStockPrices.jsp">Add Stock Prices</a><br>--%>
-<%--    <a href="listcompanies.jsp">List of Companies in the stock market</a><br>--%>
-<%--    <a href="#">Fetch company by name</a><br>--%>
-<%--    <a href="#">Stock Details of the selected date range</a><br>--%>
-<%--</div>--%>
+
+<div class="container" style="padding: 100px 200px 100px 200px">
+    <form action="/examples/actions/confirmation.php" method="post">
+        <h2 class="text-center">Log in</h2>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Username" required="required">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary btn-block">Log in</button>
+        </div>
+        <div class="clearfix">
+             <a href="#" class="float-right">Forgot Password?</a>
+        </div>
+    </form>
+    <p class="text-center"><a href="#">New User</a></p>
+</div>
 
 <jsp:include page="footer.jsp"/>
 </body>

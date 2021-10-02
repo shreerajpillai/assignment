@@ -1,5 +1,6 @@
-package org.shree;
+package org.iiht.repositories;
 
+import org.iiht.models.Stock;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

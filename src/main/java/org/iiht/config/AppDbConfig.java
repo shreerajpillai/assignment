@@ -1,4 +1,4 @@
-package org.shree;
+package org.iiht.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.persistence.EntityManagerFactory;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"org.shree"})
+@EnableJpaRepositories(basePackages = {"org.iiht"})
 @EnableTransactionManagement
 public class AppDbConfig {
     @Bean

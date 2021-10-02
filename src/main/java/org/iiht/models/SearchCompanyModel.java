@@ -1,22 +1,20 @@
-package org.shree;
+package org.iiht.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import java.util.Date;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class StockModel {
+public class SearchCompanyModel {
     private String cexchange;
     private String companyId;
-    private Double sprice;
-    private String priceDate;
-    private String priceTime;
-
+    private String ccode;
+    private String cceo;
+    private String cturnover;
+    private String startdate;
+    private String enddate;
 }

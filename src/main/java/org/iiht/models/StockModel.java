@@ -1,4 +1,4 @@
-package org.shree;
+package org.iiht.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +9,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SearchCompanyModel {
+public class StockModel {
     private String cexchange;
     private String companyId;
-    private String ccode;
-    private String cceo;
-    private String cturnover;
-    private String startdate;
-    private String enddate;
+    private Double sprice;
+    private String priceDate;
+    private String priceTime;
+
 }
