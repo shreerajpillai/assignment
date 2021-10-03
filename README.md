@@ -18,4 +18,5 @@
 6. Copy & paste {YOUR WORKSPACE}/war/assignment.war file to <YOUR TOMCAT FOLDER>/webapps 
 7. Start tomcat server
 8. Go to http://localhost:8080/assignment to start the application
-###Database Connection String: jdbc:h2:tcp://localhost:10400/~/Databases/assignment
+      
+### Database Connection String: jdbc:h2:tcp://localhost:10400/~/Databases/assignment
