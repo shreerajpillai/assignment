@@ -3,8 +3,7 @@
 2. Tomcat 8.5+
 
 # Tech stack
-1. Spring MVC 5.1x
-2. Spring ORM 5.1x
+1. Spring MVC, Spring ORM & Spring JPA 5.1x
 3. Lombok 1.18x
 4. H2 1.4x
 5. Hibernate 5.4x
