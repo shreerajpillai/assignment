@@ -1,9 +1,10 @@
-#Prerequisites
+# Prerequisites
 1. Java 11 - Please ensure JAVA_HOME environment variable is setup on your machine.
 2. Tomcat 8.5+
-#Tech stack
-1. Spring MVC 5.1x
-2. Spring ORM 5.1x
+
+# Tech stack
+1. Java 11
+2. Spring MVC, Spring ORM & Spring JPA 5.1x
 3. Lombok 1.18x
 4. H2 1.4x
 5. Hibernate 5.4x
@@ -17,4 +18,5 @@
 6. Copy & paste {YOUR WORKSPACE}/war/assignment.war file to <YOUR TOMCAT FOLDER>/webapps 
 7. Start tomcat server
 8. Go to http://localhost:8080/assignment to start the application
-###Database Connection String: jdbc:h2:tcp://localhost:10400/~/Databases/assignment
+      
+### Database Connection String: jdbc:h2:tcp://localhost:10400/~/Databases/assignment
