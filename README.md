@@ -1,7 +1,8 @@
-#Prerequisites
+# Prerequisites
 1. Java 11 - Please ensure JAVA_HOME environment variable is setup on your machine.
 2. Tomcat 8.5+
-#Tech stack
+
+# Tech stack
 1. Spring MVC 5.1x
 2. Spring ORM 5.1x
 3. Lombok 1.18x
