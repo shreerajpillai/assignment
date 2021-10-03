@@ -17,7 +17,6 @@ public class AppDbConfig {
     public LocalEntityManagerFactoryBean entityManagerFactory() {
         LocalEntityManagerFactoryBean factoryBean = new LocalEntityManagerFactoryBean();
         factoryBean.setPersistenceUnitName("Assignment");
-
         return factoryBean;
     }
 

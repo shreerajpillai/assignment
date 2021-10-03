@@ -18,6 +18,8 @@
             Company has been added successfully.
         </div>
     </c:if>
+    <h4>Add Company Details</h4>
+    <div style="margin: 20px"></div>
     <form:form action="add-company" method="post" modelAttribute="companymodel">
         <div class="form-group">
             <label for="cexchange">Stock Market Exchange</label>

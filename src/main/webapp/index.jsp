@@ -12,7 +12,7 @@
 
 
 <div class="container" style="padding: 100px 200px 100px 200px">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="addCompanyInfo" method="get">
         <h2 class="text-center">Log in</h2>
         <div class="form-group">
             <input type="text" class="form-control" placeholder="Username" required="required">
@@ -27,7 +27,7 @@
              <a href="#" class="float-right">Forgot Password?</a>
         </div>
     </form>
-    <p class="text-center"><a href="#">New User</a></p>
+    <p class="text-center"><a href="#">Add New User</a></p>
 </div>
 
 <jsp:include page="footer.jsp"/>

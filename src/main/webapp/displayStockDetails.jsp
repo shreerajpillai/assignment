@@ -23,7 +23,10 @@
     }
 </script>
 <jsp:include page="header.jsp"/>
+
 <div class="container" style="padding: 10px">
+    <h4>Stock Details of a Company</h4>
+    <div style="margin: 20px"></div>
     <form:form id="frm2" method="post" modelAttribute="searchcompanymodel">
         <label for="cexchange">Stock Market Exchange</label>
         <form:select class="form-control" id="cexchange" path="cexchange" onchange="onSubmit('fetch')">
@@ -48,7 +51,7 @@
             <form:input type="text" class="form-control" path="cceo" id="cceo" disabled="true" />
         </div>
         <div class="form-group">
-            <label for="cturnover">Turnover</label>
+            <label for="cturnover">Turnover($)</label>
             <form:input type="text" class="form-control" path="cturnover" id="cturnover" disabled="true" />
         </div>
         <button onclick="onSubmit('search')" class="btn btn-primary">Search</button>

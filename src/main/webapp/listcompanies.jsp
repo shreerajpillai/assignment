@@ -12,7 +12,10 @@
 </head>
 <body>
 <jsp:include page="header.jsp"/>
+
 <div class="container" style="padding: 10px">
+    <h4>Listed Companies Info</h4>
+    <div style="margin: 20px"></div>
     <form action="list-companies" method="get">
         <div class="form-group">
             <label for="cexchange">Stock Market Exchange: (displaying companies in exchange -

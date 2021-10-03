@@ -23,32 +23,29 @@ public class CompanyController {
     @Autowired
     private CompanyRepository repository;
 
+    @SneakyThrows
     @RequestMapping(value = "list-companies", method = RequestMethod.GET)
     public ModelAndView listCompanies(@RequestParam String selectedValue) {
         List<Company> companies;
-        if(selectedValue!=null && selectedValue.equals("ALL")) {
-           companies = (List<Company>) repository.findAll();
-        }
-        else{
-            companies = (List<Company>) repository.findByExchange(selectedValue);
+        if (selectedValue != null && selectedValue.equals("ALL")) {
+            companies = (List<Company>) repository.findAll();
+        } else {
+            companies = repository.findByExchange(selectedValue);
         }
         List<CompanyModel> companyModels = companies.stream().map(c -> {
-
-                return CompanyModel.builder()
-                        .cceo(c.getCeo())
-                        .cdirectors(c.getDirectors())
-                        .cexchange(c.getExchange())
+            return CompanyModel.builder()
+                    .cceo(c.getCeo())
+                    .cdirectors(c.getDirectors())
+                    .cexchange(c.getExchange())
                     .cname(c.getName())
                     .cprofile(c.getProfile())
                     .cturnover(c.getTurnover())
                     .build();
-
         }).collect(Collectors.toList());
-
 
         ModelAndView mav = new ModelAndView("listcompanies.jsp");
         mav.addObject("companyModels", companyModels);
-        mav.addObject("selectedValue",selectedValue);
+        mav.addObject("selectedValue", selectedValue);
         return mav;
     }
 
@@ -60,6 +57,7 @@ public class CompanyController {
         return "addCompanyInfo.jsp";
     }
 
+    @SneakyThrows
     @RequestMapping(value = "add-company", method = RequestMethod.POST)
     public ModelAndView add(@ModelAttribute("companymodel") CompanyModel companyModel) {
         Company company = new Company();
@@ -77,5 +75,4 @@ public class CompanyController {
         mv.addObject("result", true);
         return mv;
     }
-
 }

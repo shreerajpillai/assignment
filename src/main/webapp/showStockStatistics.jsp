@@ -29,7 +29,10 @@
     }
 </script>
 <jsp:include page="header.jsp"/>
+
 <div class="container" style="padding: 10px">
+    <h4>Stock Price Index</h4>
+    <div style="margin: 20px"></div>
     <form:form id="frm2" method="post" modelAttribute="searchcompanymodel">
         <label for="cexchange">Stock Market Exchange</label>
         <form:select required="true" class="form-control" id="cexchange" path="cexchange" onchange="onSubmit('fetch')">

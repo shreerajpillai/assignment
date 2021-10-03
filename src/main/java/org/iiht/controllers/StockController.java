@@ -1,5 +1,6 @@
 package org.iiht.controllers;
 
+import lombok.SneakyThrows;
 import org.iiht.models.*;
 import org.iiht.repositories.CompanyRepository;
 import org.iiht.repositories.StockRepository;
@@ -20,10 +21,10 @@ import java.util.stream.Collectors;
 public class StockController {
     @Autowired
     private StockRepository repository;
-
     @Autowired
     private CompanyRepository companyRepository;
 
+    @SneakyThrows
     @RequestMapping(value = "stock-index", method = RequestMethod.GET)
     public String stockIndex(Model model) {
         SearchCompanyModel searchCompanyModel = SearchCompanyModel.builder().build();
@@ -31,74 +32,57 @@ public class StockController {
         return "showStockStatistics.jsp";
     }
 
+    @SneakyThrows
     @RequestMapping(value = "search-stock-index", method = RequestMethod.POST)
     public ModelAndView searchStockIndex(@ModelAttribute("searchcompanymodel") SearchCompanyModel searchCompanyModel,
                                          @RequestParam String action) {
         List<CompanyModel> companyModels = new ArrayList<>();
         ModelAndView mv = new ModelAndView();
         List<Company> companies;
+        CompanyModel companyModel=null;
         if (action.equals("fetch")) {
             mv.addObject("result", false);
             Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
             if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
-                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
             } else {
-                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
             }
 
         } else {
-            List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId());
-
-
-            Double max = stockModels.stream().mapToDouble(v -> v.getSprice()).max().getAsDouble();
-            Double min = stockModels.stream().mapToDouble(v -> v.getSprice()).min().getAsDouble();
-            Double avg = stockModels.stream().mapToDouble(v -> v.getSprice()).average().getAsDouble();
-
-            StockPriceRangeModel rangeModel = StockPriceRangeModel.builder()
-                    .min(min)
-                    .max(max)
-                    .avg(avg)
-                    .build();
-
-            mv.addObject("rangemodel", rangeModel);
-
-            mv.addObject("stockModels", stockModels);
+            List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId(),
+                    searchCompanyModel.getStartdate(), searchCompanyModel.getEnddate());
+            if (stockModels != null && stockModels.stream().count() > 0) {
+                Double max = stockModels.stream().mapToDouble(v -> v.getSprice()).max().getAsDouble();
+                Double min = stockModels.stream().mapToDouble(v -> v.getSprice()).min().getAsDouble();
+                Double avg = stockModels.stream().mapToDouble(v -> v.getSprice()).average().getAsDouble();
+                StockPriceRangeModel rangeModel = StockPriceRangeModel.builder()
+                        .min(min)
+                        .max(max)
+                        .avg(avg)
+                        .build();
+                mv.addObject("rangemodel", rangeModel);
+                mv.addObject("stockModels", stockModels);
+            }
             Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
             if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
-                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
             } else {
-                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
             }
         }
-
+        if (companyModel != null) {
+            searchCompanyModel.setCcode("CODE0001");
+            searchCompanyModel.setCceo(companyModel.getCceo());
+            searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+        }
         mv.setViewName("showStockStatistics.jsp");
-        //mv.addObject("selectedValue",selectedValue);
         return mv;
     }
 
-
+    @SneakyThrows
     @RequestMapping(value = "search-company", method = RequestMethod.GET)
     public String searchCompany(Model model) {
         SearchCompanyModel searchCompanyModel = SearchCompanyModel.builder().build();
@@ -106,67 +90,54 @@ public class StockController {
         return "displayStockDetails.jsp";
     }
 
+    @SneakyThrows
     @RequestMapping(value = "list-stocks", method = RequestMethod.POST)
     public ModelAndView listStocks(@ModelAttribute("searchcompanymodel") SearchCompanyModel searchCompanyModel, @RequestParam String action) {
         List<CompanyModel> companyModels = new ArrayList<>();
         ModelAndView mv = new ModelAndView();
+        CompanyModel companyModel;
         List<Company> companies;
         if (action.equals("fetch")) {
             mv.addObject("result", false);
             Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
             if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
-                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
-            } else {
-                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
-            }
+                companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
 
+            } else {
+                companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
+            }
         } else {
-            List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId());
+            List<StockModel> stockModels = getStockByCompany(searchCompanyModel.getCompanyId(),
+                    null, null);
             mv.addObject("stockModels", stockModels);
             Map<String, String> referenceData = getCompanies(searchCompanyModel.getCexchange());
             mv.addObject("companyModels", referenceData);
             if (StringUtils.isEmpty(searchCompanyModel.getCompanyId()) && referenceData != null) {
-                CompanyModel companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(referenceData.entrySet().iterator().next().getKey());
             } else {
-                CompanyModel companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
-                if (companyModel != null) {
-                    searchCompanyModel.setCcode("test");
-                    searchCompanyModel.setCceo(companyModel.getCceo());
-                    searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
-                }
+                companyModel = getCompanyDetail(searchCompanyModel.getCompanyId());
             }
         }
-
+        if (companyModel != null) {
+            searchCompanyModel.setCcode("CODE0001");
+            searchCompanyModel.setCceo(companyModel.getCceo());
+            searchCompanyModel.setCturnover(companyModel.getCturnover().toString());
+        }
         mv.setViewName("displayStockDetails.jsp");
-        //mv.addObject("selectedValue",selectedValue);
         return mv;
     }
 
+    @SneakyThrows
     @RequestMapping(value = "addStock", method = RequestMethod.GET)
     public String addStock(Model model) {
         List<CompanyModel> companyModels = new ArrayList<>();
         StockModel stockModel = StockModel.builder().build();
         model.addAttribute("stockmodel", stockModel);
-        //model.addAttribute("companyModels", companyModels);
         return "addStockPrices.jsp";
     }
 
+    @SneakyThrows
     @RequestMapping(value = "save-stock", method = RequestMethod.POST)
     public ModelAndView add(@ModelAttribute("stockmodel") StockModel stockmodel, @RequestParam String action) {
         List<CompanyModel> companyModels = new ArrayList<>();
@@ -189,12 +160,11 @@ public class StockController {
             mv.addObject("companyModels", referenceData);
         }
         System.out.println("Stock has been successfully added");
-
         mv.setViewName("addStockPrices.jsp");
-
         return mv;
     }
 
+    @SneakyThrows
     private CompanyModel getCompanyDetail(String companyId) {
         Optional<Company> company = companyRepository.findById(companyId);
         CompanyModel companyModel = null;
@@ -207,6 +177,7 @@ public class StockController {
         return companyModel;
     }
 
+    @SneakyThrows
     private Map<String, String> getCompanies(String selectedValue) {
         List<Company> companies;
         if (selectedValue != null && selectedValue.equals("ALL")) {
@@ -218,15 +189,18 @@ public class StockController {
         companies.forEach(c -> {
             company.put(c.getId(), c.getName());
         });
-
         return company;
     }
 
-    public List<StockModel> getStockByCompany(String companyId) {
+    @SneakyThrows
+    public List<StockModel> getStockByCompany(String companyId, String startDate, String endDate) {
         List<Stock> stocks;
-        stocks = repository.findByCompanyId(companyId);
+        if (startDate == null && endDate == null) {
+            stocks = repository.findByCompanyIdOrderByPriceDateAscPriceTimeAsc(companyId);
+        } else {
+            stocks = repository.findByCompanyIdAndPriceDateBetweenOrderByPriceDateAscPriceTimeAsc(companyId, startDate, endDate);
+        }
         List<StockModel> stockModels = stocks.stream().map(c -> {
-
             return StockModel.builder()
                     .cexchange(c.getExchange())
                     .companyId(c.getCompanyId())
@@ -234,9 +208,7 @@ public class StockController {
                     .priceTime(c.getPriceTime())
                     .sprice(c.getPrice())
                     .build();
-
         }).collect(Collectors.toList());
-
         return stockModels;
     }
 }

@@ -16,6 +16,8 @@
             Stock has been added successfully.
         </div>
     </c:if>
+    <h4>Add Stock Prices</h4>
+    <div style="margin: 20px"></div>
     <form:form id="frm" method="post" modelAttribute="stockmodel">
 
 <%--        <form:form action="get-companies" method="get">--%>
