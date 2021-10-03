@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="resources/bootstrap.bundle.min.js">
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="authorized" value="true"/>
+</jsp:include>
 <div class="container">
     <div class="row">
         <div class="col-md-12">

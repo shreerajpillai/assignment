@@ -11,7 +11,9 @@
 
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="authorized" value="true"/>
+</jsp:include>
 <div class="container" style="padding: 10px">
     <c:if test="${result}">
         <div class="alert alert-success" role="alert">

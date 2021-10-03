@@ -28,7 +28,9 @@
         frm.submit();
     }
 </script>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="authorized" value="true"/>
+</jsp:include>
 
 <div class="container" style="padding: 10px">
     <h4>Stock Price Index</h4>

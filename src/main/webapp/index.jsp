@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="resources/bootstrap.bundle.min.js">
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="authorized" value="false"/>
+</jsp:include>
 
 
 <div class="container" style="padding: 100px 200px 100px 200px">

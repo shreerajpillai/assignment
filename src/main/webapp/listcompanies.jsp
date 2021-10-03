@@ -11,7 +11,9 @@
 
 </head>
 <body>
-<jsp:include page="header.jsp"/>
+<jsp:include page="header.jsp">
+    <jsp:param name="authorized" value="true"/>
+</jsp:include>
 
 <div class="container" style="padding: 10px">
     <h4>Listed Companies Info</h4>
